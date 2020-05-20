@@ -1,0 +1,17 @@
+0238f641873408fb9812936ec1b74d74 *DESCRIPTION
+cb9b38d8bbe7ef34f6fb0d30bda1c275 *NAMESPACE
+b2549a3c6be62ac773ada19cbc326405 *NEWS.md
+de79503003fb23fa3e79c82c82e1e986 *R/bootTest.R
+28b32bd11087eb9267e4fb16c7a1b40c *R/computeT.R
+ec9f5a622dcfbb897a010f37a66c59b3 *R/getdisc.R
+2212464466c1f4d7e6cc20653cb21c52 *R/pc_PI.R
+abc8663a5e1150a6c1593bf2e4fc3a0c *R/pc_th.R
+b79be0a236c0138c2f46580e75978e93 *README.md
+d6249daacda32323f3f6edcab7dcf93a *build/vignette.rds
+90c300f485a8a9684b6475a58390debb *inst/CITATION
+d20283cbf372d2e4e666afffafafceb1 *inst/doc/discnormvignette.R
+4ad9a2426f83850a4581b45cef052fe5 *inst/doc/discnormvignette.Rmd
+f4a236aeb96f1f29c38b369e54afde7b *inst/doc/discnormvignette.html
+defd1cd82e688d57baeb1a16a17f8042 *man/bootTest.Rd
+4dec5b6d72f1eb09de7113239292a68e *vignettes/bibsel.bib
+4ad9a2426f83850a4581b45cef052fe5 *vignettes/discnormvignette.Rmd
