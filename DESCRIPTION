@@ -1,7 +1,7 @@
 Package: discnorm
 Type: Package
 Title: Test for Discretized Normality in Ordinal Data
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(person("Njål", "Foldnes", email = "njal.foldnes@gmail.com", role = c("aut", "cre")),
            person("Steffen", "Grønneberg", email = "steffeng@gmail.com", role = c("aut")))
 Description: Tests whether multivariate ordinal data may stem from discretizing a multivariate normal distribution.
@@ -16,9 +16,9 @@ Imports: lavaan (>= 0.6.10), arules, sirt, MASS, pbivnorm, cubature,
         copula, mnormt, GoFKernel
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2022-03-22 14:42:21 UTC; Njaal0
+Packaged: 2022-05-25 10:00:38 UTC; njaalfoldnes
 Author: Njål Foldnes [aut, cre],
   Steffen Grønneberg [aut]
 Maintainer: Njål Foldnes <njal.foldnes@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-03-22 15:40:02 UTC
+Date/Publication: 2022-05-25 15:20:02 UTC

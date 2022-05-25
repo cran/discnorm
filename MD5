@@ -1,6 +1,6 @@
-82af945819caa70e3bed23d954c9021a *DESCRIPTION
+af36a4fab7cc36d93ed8700448dd6e6f *DESCRIPTION
 1f2d6c5e02094d19f010ac26d36a1a0b *NAMESPACE
-8e8bb8871f11c367fcd77bcd762cdc6e *NEWS.md
+2a5fe11b5ecf6a351e2ecd0df96eadc9 *NEWS.md
 057b0b68786905ea691987294c5ff7fd *R/bootTest.R
 1423560ae5daa48d9f307ea5cca05533 *R/catLSadj.R
 9c8f267b36d4115f16a76d679088e637 *R/computeT.R
@@ -8,11 +8,11 @@ ec9f5a622dcfbb897a010f37a66c59b3 *R/getdisc.R
 2212464466c1f4d7e6cc20653cb21c52 *R/pc_PI.R
 abc8663a5e1150a6c1593bf2e4fc3a0c *R/pc_th.R
 74e6548a0751c12a512d1e1833a7bcf5 *README.md
-e01d438c339d89636bb8291fde452271 *build/vignette.rds
+f6ef96bd76d7088ea349e793de76eed9 *build/vignette.rds
 90c300f485a8a9684b6475a58390debb *inst/CITATION
 c55bad1d648e664045397f8be94cf396 *inst/doc/discnormvignette.R
 8861dee2a51788cb1b2eebfa3f86dd26 *inst/doc/discnormvignette.Rmd
-a99c7c26410a0615173fe79041568323 *inst/doc/discnormvignette.html
+59191ded8114af39b947d82bcd050238 *inst/doc/discnormvignette.html
 defd1cd82e688d57baeb1a16a17f8042 *man/bootTest.Rd
 e459276eaaa4f1ea953f1bf615adda97 *man/catLSadj.Rd
 b95e53e6c7e41ddd262638f3dfebfb0a *vignettes/bibsel.bib
