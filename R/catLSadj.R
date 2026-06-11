@@ -134,8 +134,16 @@
 
 #'@export
 catLSadj <- function(data.df, marginslist, verbose=FALSE) {
-  
-  
+
+  data.df <- as.data.frame(data.df)
+  if(ncol(data.df) < 2) {
+    stop("data.df must contain at least two columns.")
+  }
+  if(length(marginslist) != ncol(data.df)) {
+    stop("marginslist must contain exactly one element per column in data.df (got ",
+         length(marginslist), " elements for ", ncol(data.df), " columns).")
+  }
+
   #Step 1: Standardize the marginals
   
   marginslist <- lapply(marginslist, function(margin) {
@@ -192,7 +200,7 @@ catLSadj <- function(data.df, marginslist, verbose=FALSE) {
   })
   
   #Step 2: Compute adjusted polychoric matrix
-  polcorr <- lavaan::lavCor(data.df, ordered=names(data.df), cor.smooth = T)
+  polcorr <- lavaan::lavCor(data.df, ordered=names(data.df), cor.smooth = TRUE)
   
   d <- dim(data.df)[2]
   polcorrAdj <- polcorr
@@ -222,20 +230,18 @@ catLSadj <- function(data.df, marginslist, verbose=FALSE) {
   }
   
   #Step 3: Extract original gamma, and adjust it.
-  
-  #We fit an arbitrary factor model, just to get lavaan to compute Gamma,
-  #which is the same for all models. 
-  model <- paste("factor =~", paste(colnames(data.df), collapse = " + "))
-  #lavaan will always give a warning, correctly warning against a model that has
-  #not converged. We do not care about the model parameters,
-  #but use its interface to later extract the (original, non-adjusted) gamma-matrix:
-  suppressWarnings(fitMot <- lavaan::cfa(model, data = data.df, ordered = names(data.df), std.lv=T, 
-                                         optim.force.converged=TRUE, 
-                                         optim.method = "GN", optim.gn.iter.max=1))
+
+  #Gamma is the asymptotic covariance matrix of the sample thresholds and
+  #polychoric correlations. It does not depend on any structural model, so we
+  #obtain it from the unrestricted fit returned by lavCor. (Earlier versions
+  #fitted a dummy factor model with optim.gn.iter.max=1 for this purpose; that
+  #option value is rejected by recent versions of lavaan.)
+  fitMot <- lavaan::lavCor(data.df, ordered = names(data.df), se = "standard",
+                           output = "fit")
   gamma.orig <- lavaan::lavInspect(fitMot, "gamma")
   gamma.new <- get_newgamma(gamma.orig, polcorr, marginslist)
-  
-  return(list(polcorrAdj, gamma.new))  
+
+  return(list(polcorrAdj, gamma.new))
 }
 
 
@@ -265,9 +271,13 @@ calcSd <- function(F, qF) {
   #step 1: Expectation:
   
   #Positive part:
+  #E[X] = int_0^Inf (1-F) dx - int_-Inf^0 F dx. The integration must start
+  #at 0, not at the lower end of the support: on [0, lowerF] the integrand
+  #1-F equals 1 and contributes lowerF to the expectation when the support
+  #lies strictly above zero.
   res1Int <- 0
   if(upperF > 0) {
-    lowerLimit <- max(0,lowerF)
+    lowerLimit <- 0
     upperLimit <- upperF
     res1 <- cubature::hcubature(f=function(x) {
       return(1-F(x[1])) #P(X > x), assuming X continuous
@@ -275,11 +285,11 @@ calcSd <- function(F, qF) {
     successInt <- successInt + res1$returnCode
     res1Int <- res1$integral
   }
-  #Negative part:
+  #Negative part: must integrate up to 0 for the same reason.
   res2Int <- 0
   if(lowerF < 0) {
     lowerLimit <- lowerF
-    upperLimit <- min(upperF,0)
+    upperLimit <- 0
     res2 <- cubature::hcubature(f=function(x) {
       return(-F(x[1]))
     }, lowerLimit=lowerLimit, upperLimit=upperLimit)
@@ -384,8 +394,6 @@ Psi <- function(rho, F1, F2, qF1, qF2) {
   
   return(res)
 }
-
-Psi_vect <-Vectorize(Psi, "rho")
 
 #NB: Assumes that the marginal functions are standardized
 Der_Psi <- function(rho, F1, F2, qF1, qF2, output = FALSE) {

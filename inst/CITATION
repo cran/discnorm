@@ -1,16 +1,33 @@
-citHeader("To cite covsim in publications use:")
+citHeader("To cite discnorm in publications use:")
 
-citEntry(entry = "Article",
-         title        = "Pernicious Polychorics: The Impact and Detection of Underlying Non-normality",
-         author       = personList(as.person("Njål Foldnes"),
-                                   as.person("Steffen Grønneberg")),
-         journal      = "Structural Equation Modeling: A Multidisciplinary Journal",
-         year         = "2019",
-         url          = "https://doi.org/10.1080/10705511.2019.1673168",
+bibentry(
+  bibtype = "Article",
+  title   = "Pernicious Polychorics: The Impact and Detection of Underlying Non-normality",
+  author  = c(person("Njål", "Foldnes"),
+              person("Steffen", "Grønneberg")),
+  journal = "Structural Equation Modeling: A Multidisciplinary Journal",
+  year    = "2019",
+  doi     = "10.1080/10705511.2019.1673168",
+  textVersion = paste(
+    "Njål Foldnes, Steffen Grønneberg (2019).",
+    "Pernicious Polychorics: The Impact and Detection of Underlying Non-normality.",
+    "Structural Equation Modeling: A Multidisciplinary Journal.",
+    "doi:10.1080/10705511.2019.1673168"
+  )
+)
 
-         textVersion  =
-           paste("Njål Foldnes, Steffen Grønneberg (2019).",
-                 "Pernicious Polychorics: The Impact and Detection of Underlying Non-normality.",
-                 "Structural Equation Modeling: A Multidisciplinary Journal.",
-                 "URL https://doi.org/10.1080/10705511.2019.1673168")
+bibentry(
+  bibtype = "Article",
+  title   = "Factor Analyzing Ordinal Items Requires Substantive Knowledge of Response Marginals",
+  author  = c(person("Steffen", "Grønneberg"),
+              person("Njål", "Foldnes")),
+  journal = "Psychological Methods",
+  year    = "2022",
+  doi     = "10.1037/met0000495",
+  textVersion = paste(
+    "Steffen Grønneberg, Njål Foldnes (2022).",
+    "Factor Analyzing Ordinal Items Requires Substantive Knowledge of Response Marginals.",
+    "Psychological Methods.",
+    "doi:10.1037/met0000495"
+  )
 )

@@ -20,13 +20,23 @@
 #'#no support for underlying non-normality
 #'@export
 bootTest <- function(my.data, B=1000, verbose=TRUE){
+  my.data <- data.frame(my.data)
+  if(ncol(my.data) < 2){
+    stop("bootTest requires at least two variables.")
+  }
+  if(any(is.na(my.data))){
+    stop("bootTest does not support missing values. Please provide complete cases.")
+  }
+  if(!all(sapply(my.data, function(col) is.numeric(col) && all(col == round(col))))){
+    stop("bootTest requires integer-valued data.")
+  }
   #binary data are not admissible
-  numcats <- sapply(data.frame(my.data), function(col) length(unique(col)))
+  numcats <- sapply(my.data, function(col) length(unique(col)))
   if(min(numcats) < 3){
     stop("bootTest presently requires more than two categories in each variable. If relevant, you may exclude binary variables from the data frame and re-run.")
   }
   #sirt needs minimum value to be zero
-  my.data <- sapply(data.frame(my.data), function(col) col-min(col,na.rm=T))
+  my.data <- sapply(my.data, function(col) col-min(col))
   
   #P.hat <- sirt::polychoric2(my.data, cor.smooth=TRUE, use_pbv=FALSE)$rho
   P.hat <- lavaan::lavCor(data.frame(my.data), ordered=colnames(my.data), cor.smooth = TRUE)
@@ -44,7 +54,6 @@ bootTest <- function(my.data, B=1000, verbose=TRUE){
   Tstat <- tryCatch(computeT(my.data, indices),error=function(w) { NULL})
   if(is.null(Tstat)){
     stop("Error: could not compute test statistic in original sample.\n")
-    return(NA) 
   }
   if(verbose)
     cat("Progress 0% ")
@@ -62,8 +71,7 @@ bootTest <- function(my.data, B=1000, verbose=TRUE){
   
   if(naprop  > 0.5){
     stop("Error: could not compute test statistic in more than 50% of the bootstrap samples.\n")
-    return(NA)
   }
-  
-  mean(Tstat < TstatBoot, na.rm=T)
+
+  mean(Tstat < TstatBoot, na.rm=TRUE)
 }
